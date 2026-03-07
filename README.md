@@ -2,6 +2,8 @@
 
 <div align="center">
 
+<img src="https://raw.githubusercontent.com/gmarciani/nameping/main/resources/brand/banner.png" alt="nameping-banner" width="500">
+
 [![PyPI version](https://img.shields.io/pypi/v/nameping.svg)](https://pypi.org/project/nameping)
 [![Python versions](https://img.shields.io/pypi/pyversions/nameping.svg)](https://pypi.org/project/nameping)
 [![License](https://img.shields.io/github/license/gmarciani/nameping.svg)](https://github.com/gmarciani/nameping/blob/main/LICENSE)
