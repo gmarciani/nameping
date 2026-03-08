@@ -17,7 +17,7 @@ from nameping.commands.config import config_cmd
 @click.version_option(version=__version__, prog_name="nameping")
 @click.option("--debug", "-d", is_flag=True, help="Enable debug output")
 @click.pass_context
-def main_cmd(ctx: click.Context, debug: bool) -> None:
+def main(ctx: click.Context, debug: bool) -> None:
     """Main CLI entry point."""
     ctx.ensure_object(dict)
     ctx.obj["debug"] = debug
@@ -32,10 +32,10 @@ def main_cmd(ctx: click.Context, debug: bool) -> None:
     logging.Formatter.converter = lambda *args: __import__("time").gmtime()
 
 
-main_cmd.add_command(check_domain_cmd)
-main_cmd.add_command(check_company_cmd)
-main_cmd.add_command(config_cmd)
+main.add_command(check_domain_cmd)
+main.add_command(check_company_cmd)
+main.add_command(config_cmd)
 
 
 if __name__ == "__main__":
-    main_cmd()
+    main()

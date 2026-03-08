@@ -7,7 +7,7 @@ import logging
 import socket
 from dataclasses import dataclass
 
-import whois
+import whois  # type: ignore[import-untyped]
 
 logger = logging.getLogger(__name__)
 

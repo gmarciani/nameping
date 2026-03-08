@@ -15,7 +15,7 @@ from nameping.commands.common import (
     stream_entry,
 )
 from nameping.config.configuration import load_config
-from nameping.controls.delaware import check_company
+from nameping.controls.companies import check_company
 
 logger = logging.getLogger(__name__)
 

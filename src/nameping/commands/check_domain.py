@@ -15,7 +15,7 @@ from nameping.commands.common import (
     stream_entry,
 )
 from nameping.config.configuration import load_config
-from nameping.controls.whois import check_domain
+from nameping.controls.domains import check_domain
 
 logger = logging.getLogger(__name__)
 

@@ -54,7 +54,7 @@ docs = [
 ]
 
 [project.scripts]
-nameping = "nameping.cli:main_cmd"
+nameping = "nameping.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/gmarciani/nameping"
