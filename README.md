@@ -29,7 +29,10 @@ Check name availability across domains and business registries.
 
 ## Features
 
-TBD
+- Check domain name availability via WHOIS lookup across multiple TLDs
+- Check company name availability in the Delaware Division of Corporations registry
+- Batch processing from comma-separated input or file (one name per line)
+- Output in JSON, YAML, CSV, or markdown table format (console and file)
 
 ## Installation
 
@@ -39,15 +42,38 @@ pip install nameping
 
 ## Usage
 
-TBD
+### Check domain availability
 
-## Configuration
+```shell
+# Single name, default TLD (com)
+nameping check-domain --names myproject
 
-See [configuration reference](https://gmarciani.github.io/nameping/configuration.html) for full documentation.
+# Multiple names and TLDs
+nameping check-domain --names "alpha,bravo,charlie" --tld com,net,io
 
-## Commands
+# From a file, checking only entries 10 through 20
+nameping check-domain --file names.txt --from 10 --to 20
 
-TBD
+# Save results as Makrdown table, excluding taken domains
+nameping check-domain --file names.txt --tld com --output results.md --output-format csv --exclude-taken
+```
+
+### Check company name availability
+
+```shell
+# Single name in Delaware (default registry)
+nameping check-company --names myproject
+
+# Multiple names and company types
+nameping check-company --names "alpha,bravo" --company-type llc,corp
+
+# Specify registry explicitly
+nameping check-company --file names.txt --registries delaware --output results.json
+```
+
+## Documentation
+
+Check out the official documentation [here](https://gmarciani.github.io/nameping).
 
 ## Issues
 
