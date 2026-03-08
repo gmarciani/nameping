@@ -6,7 +6,9 @@
 import click
 import logging
 from nameping.constants import __version__
-from nameping.commands.config import config
+from nameping.commands.check_domain import check_domain_cmd
+from nameping.commands.check_company import check_company_cmd
+from nameping.commands.config import config_cmd
 
 
 @click.group(
@@ -30,7 +32,9 @@ def main(ctx: click.Context, debug: bool) -> None:
     logging.Formatter.converter = lambda *args: __import__("time").gmtime()
 
 
-main.add_command(config)
+main.add_command(check_domain_cmd)
+main.add_command(check_company_cmd)
+main.add_command(config_cmd)
 
 
 if __name__ == "__main__":

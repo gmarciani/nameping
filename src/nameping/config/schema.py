@@ -22,17 +22,21 @@ class Config(BaseModel):
 
     # Search Criteria
     TopLevelDomains: list[str] = Field(
-        default=["com", "us"],
+        default=["com"],
         description="Top level domains to check.",
     )
     CompanyTypes: list[str] = Field(
-        default=["llc", "corp"],
+        default=["llc"],
         description="Types of companies to check.",
+    )
+    CompanyRegistries: list[str] = Field(
+        default=["delaware"],
+        description="Registry to check company names from.",
     )
 
     # API client settings
     Timeout: int = Field(
-        default=30,
+        default=10,
         ge=1,
         description="Request timeout in seconds",
     )
@@ -52,7 +56,7 @@ class Config(BaseModel):
     )
 
     # Output formatting
-    OutputFormat: Literal["json", "table", "yaml"] = Field(
+    OutputFormat: Literal["json", "csv", "table"] = Field(
         default="json",
         description="Default output format",
     )

@@ -16,14 +16,14 @@ logger = logging.getLogger(__name__)
 
 
 @click.group(help="Manage configurations.")
-def config() -> None:
+def config_cmd() -> None:
     """Config command group implementation."""
 
 
-@config.command(help="Set a configuration value.")
+@config_cmd.command(help="Set a configuration value.")
 @click.argument("key")
 @click.argument("value")
-def set(key: str, value: str) -> None:
+def set_cmd(key: str, value: str) -> None:
     """Set command implementation."""
     cfg = load_config()
     old_value = cfg.get(key)
@@ -34,9 +34,9 @@ def set(key: str, value: str) -> None:
     print(json.dumps(result, indent=2))
 
 
-@config.command(help="Get a configuration value.")
+@config_cmd.command(help="Get a configuration value.")
 @click.argument("key")
-def get(key: str) -> None:
+def get_cmd(key: str) -> None:
     """Get command implementation."""
     cfg = load_config()
     if key not in cfg:
@@ -47,9 +47,9 @@ def get(key: str) -> None:
     print(json.dumps(result, indent=2))
 
 
-@config.command(help="Unset a configuration value (set to None).")
+@config_cmd.command(help="Unset a configuration value (set to None).")
 @click.argument("key")
-def unset(key: str) -> None:
+def unset_cmd(key: str) -> None:
     """Unset command implementation."""
     cfg = load_config()
     if key not in cfg:
@@ -64,15 +64,17 @@ def unset(key: str) -> None:
     print(json.dumps(result, indent=2))
 
 
-@config.command(help="Show all configuration values as JSON.")
-def show() -> None:
+@config_cmd.command(help="Show all configuration values as JSON.")
+def show_cmd() -> None:
     """Show command implementation."""
     cfg = load_config()
     print(json.dumps(cfg, indent=2))
 
 
-@config.command(help="Reset configuration to defaults and delete local config file.")
-def reset() -> None:
+@config_cmd.command(
+    help="Reset configuration to defaults and delete local config file."
+)
+def reset_cmd() -> None:
     """Reset command implementation."""
     cfg = load_config()
     print(json.dumps(cfg, indent=2))
