@@ -55,6 +55,18 @@ class Config(BaseModel):
         description="API key for OpenCorporates",
     )
 
+    # Request delay
+    DelayMin: float = Field(
+        default=1.0,
+        ge=0,
+        description="Minimum random delay in seconds between requests.",
+    )
+    DelayMax: float = Field(
+        default=5.0,
+        ge=0,
+        description="Maximum random delay in seconds between requests.",
+    )
+
     # Output formatting
     OutputFormat: Literal["json", "csv", "table"] = Field(
         default="json",

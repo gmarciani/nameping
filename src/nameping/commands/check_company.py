@@ -4,6 +4,8 @@
 """Check command for company name availability."""
 
 import logging
+import random
+import time
 from pathlib import Path
 
 import click
@@ -118,6 +120,8 @@ def check_company_cmd(
     timeout: int = cfg.get("Timeout", 30)
     retry_max: int = cfg.get("RetryMaxAttempts", 3)
     retry_backoff: float = cfg.get("RetryBackoffFactor", 0.5)
+    delay_min: float = cfg.get("DelayMin", 1.0)
+    delay_max: float = cfg.get("DelayMax", 15.0)
     fmt = output_format or cfg.get("OutputFormat", "json")
     types = (
         [t.strip() for t in company_type.split(",") if t.strip()]
@@ -179,6 +183,17 @@ def check_company_cmd(
                         retry_max_attempts=retry_max,
                         retry_backoff_factor=retry_backoff,
                     )
+
+                # Random delay between requests to avoid rate limiting
+                if not (
+                    name == all_names[-1]
+                    and registry == registry_list[-1]
+                    and ct == types[-1]
+                ):
+                    delay = random.uniform(delay_min, delay_max)
+                    logger.debug("Sleeping %.1f seconds before next request", delay)
+                    time.sleep(delay)
+
                 entry = {
                     "name": name,
                     "company_type": ct,
@@ -210,16 +225,14 @@ def check_company_cmd(
                     results.append(entry)
                     if out_file:
                         stream_entry(out_file, entry, fmt, written, company_columns)
+                    elif output_path and fmt == "table":
+                        output_path.write_text(format_results(results, fmt) + "\n")
                     written += 1
 
     if out_file:
         if fmt == "json":
             out_file.write("\n]\n")
         out_file.close()
-
-    # For table format, write the full aligned table at the end
-    if output_path and fmt == "table":
-        output_path.write_text(format_results(results, fmt) + "\n")
 
     if output_path:
         click.echo(f"Results written to {output_path}", err=True)
